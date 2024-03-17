@@ -1,0 +1,15 @@
+# Ignorar archivos generados por Docker Compose
+docker-compose.override.yml
+docker-compose.yml
+
+# Ignorar archivos de estado de contenedores
+*.log
+*.pid
+*.swo
+*.swp
+
+# Ignorar archivos de caché de Docker
+.docker/
+
+# Ignorar archivos de registro de Docker
+*.log
