@@ -1,6 +1,5 @@
 # Ignorar archivos generados por Docker Compose
 docker-compose.override.yml
-docker-compose.yml
 
 # Ignorar archivos de estado de contenedores
 *.log
@@ -13,3 +12,7 @@ docker-compose.yml
 
 # Ignorar archivos de registro de Docker
 *.log
+
+# Ignorar volumenes creados
+pgadmin/
+postgres/
