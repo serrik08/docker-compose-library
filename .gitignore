@@ -16,3 +16,6 @@ docker-compose.override.yml
 # Ignorar volumenes creados
 pgadmin/
 postgres/
+
+# Ignorar variables de entorno
+.env
