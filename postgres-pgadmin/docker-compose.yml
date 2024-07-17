@@ -1,28 +1,29 @@
-# Version
-version: '3'
-
 services:
   db:
     container_name: postgres_database
-    image: postgres:15.6-alpine3.19
-    volumes:
-      # - postgres-db:/var/lib/postgresql/data
-      - ./postgres:/var/lib/postgresql/data
+    image: postgres:16.3-alpine3.20
     environment:
-      - POSTGRES_PASSWORD=123456
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: secret
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
 
   pgAdmin:
+    container_name: pgadmin
     depends_on:
       - db
-    image: dpage/pgadmin4:8.4
+    image: dpage/pgadmin4:8.9
     ports:
       - "8080:80"
     volumes:
-      - ./pgadmin:/var/lib/pgadmin
+      - pgadmin_data:/var/lib/pgadmin
     environment:
-      - PGADMIN_DEFAULT_PASSWORD=123456
-      - PGADMIN_DEFAULT_EMAIL=srgr89@gmail.com
+      - PGADMIN_DEFAULT_EMAIL: admin@example.com
+      - PGADMIN_DEFAULT_PASSWORD: secret
 
-# volumes:
-#   postgres-db:
-#     external: true
+volumes:
+  postgres-db:
+  pgadmin_data:
