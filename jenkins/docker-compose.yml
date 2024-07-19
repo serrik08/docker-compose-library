@@ -1,0 +1,31 @@
+services:
+  jenkins:
+    image: jenkins/jenkins:lts-alpine
+    container_name: jenkins
+    ports:
+      - "9000:8080"
+      #- "50000:50000"
+    volumes:
+      - jenkins_home:/var/jenkins_home
+    tty: true
+    environment:
+      #JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+      #JENKINS_OPTS: "--prefix=/jenkins"
+      JAVA_OPTS: "-Djenkins.install.runSetupWizard=false"
+      JENKINS_LEADER_ADMIN_USER: "${JENKINS_LEADER_ADMIN_USER}"
+      JENKINS_LEADER_ADMIN_PASSWORD: "${JENKINS_LEADER_ADMIN_PASSWORD}"
+
+  cli:
+        image: openjdk:9-jre-slim
+        environment:
+            JENKINS_LEADER_ADMIN_USER: "${JENKINS_LEADER_ADMIN_USER}"
+            JENKINS_LEADER_ADMIN_PASSWORD: "${JENKINS_LEADER_ADMIN_PASSWORD}"
+            JENKINS_URL: "http://jenkins:9000"
+        tty: true
+        volumes:
+            - cli:/cli:ro
+        working_dir: /cli
+
+volumes:
+  jenkins_home:
+  cli:
